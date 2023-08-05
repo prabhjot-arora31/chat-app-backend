@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+app.get("/",(req,res)=>{
+  res.send("responded.....");
+});
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
