@@ -30,6 +30,6 @@ io.on("connection", (socket) => {
   });
 }); //events
 
-server.listen(3001, () => {
+server.listen(process.env.PORT || 3001, () => {
   console.log("Server is listening on port 3001");
 });
