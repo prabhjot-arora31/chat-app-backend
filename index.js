@@ -1,8 +1,5 @@
 const express = require("express");
 const app = express();
-app.get("/",(req,res)=>{
-  res.send("responded.....");
-});
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
@@ -16,18 +13,20 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  const realData = [];
   console.log(socket.id);
   socket.on("join_the_room", (data) => {
-    socket.join("id:", data);
+    socket.join(data);
     console.log(`User:${socket.id} connected with room id:${data}`);
   });
   socket.on("send_the_message", (data) => {
-    console.log("room id is: ", data.roomId);
-    realData.push(data);
-    socket.broadcast.emit("get_message",data);
-   // socket.to(data.roomId).emit("get_message", data);
-   // socket.broadcast.to('my room').emit('hello', msg);
+    console.log(
+      "room id is: ",
+      data.roomId,
+      " and type is: ",
+      typeof data.roomId
+    );
+    // socket.broadcast.emit("get_message", data);
+    socket.broadcast.to(data.roomId).emit("get_message", data);
   });
 
   socket.on("disconnect", () => {
