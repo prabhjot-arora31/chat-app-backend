@@ -26,6 +26,7 @@ io.on("connection", (socket) => {
     console.log("room id is: ", data.roomId);
     realData.push(data);
     socket.broadcast.to(data.roomId).emit("get_message", data);
+   // socket.broadcast.to('my room').emit('hello', msg);
   });
 
   socket.on("disconnect", () => {
